@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>HuluMan/Popup.qml</file>
+        <file>HuluMan/Pane.qml</file>
+        <file>DelegateItem.qml</file>
+    </qresource>
+</RCC>
