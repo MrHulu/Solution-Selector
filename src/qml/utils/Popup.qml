@@ -9,7 +9,7 @@ C.Popup {
     implicitWidth: implicitContentWidth + leftPadding + rightPadding
     implicitHeight: implicitContentHeight + topPadding + bottomPadding
 
-    parent: ApplicationWindow.window ? ApplicationWindow.window.contentItem : null
+    //parent: ApplicationWindow.window ? ApplicationWindow.window.contentItem : null
     x: parent ? Math.round((parent.width - width) / 2) : 0
     y: parent ? Math.round((parent.height - height) / 2) : 0
     visible: false

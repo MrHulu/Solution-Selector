@@ -6,7 +6,7 @@ import QtQml.Models 2.15
 import QtQuick.Controls 1.4 as C14
 import QtQuick.Controls.Styles 1.4 as CS
 import Qt.labs.calendar 1.0
-import "HuluMan" as H
+import "utils" as U
 
 C2.ApplicationWindow {
     id: win
@@ -27,7 +27,7 @@ C2.ApplicationWindow {
         timeView.currentIndex = -1
     }
 
-    H.Pane {
+    U.Pane {
         id: calenderPane
         anchors.top: win.contentItem.top
         anchors.left: win.contentItem.left
@@ -54,7 +54,7 @@ C2.ApplicationWindow {
         }
     }
 
-    H.Pane {
+    U.Pane {
         anchors.top: calenderPane.bottom
         anchors.left: win.contentItem.left
         anchors.right: win.contentItem.right
@@ -249,6 +249,6 @@ C2.ApplicationWindow {
 
     }// pane
 
-    H.Popup { id: popup; onClosed: { reset(); } }
+    U.Popup { id: popup; onClosed: { reset(); } }
 
 }

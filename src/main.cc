@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "Core/Clipboard.h"
+#include "core/Clipboard.h"
 
 int main(int argc, char *argv[])
 {
