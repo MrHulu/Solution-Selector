@@ -35,14 +35,14 @@ C.Popup {
                 Layout.preferredHeight: text.implicitHeight * 2
                 Layout.fillWidth: true
                 color: "beige"
-                TextInput {
+                Text {
                     id: text
                     width: parent.width
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
                     text: popup.text
                     font.pixelSize: 14
-                    readOnly: true
+                    wrapMode: Text.WordWrap
                 }
             }
             Item { Layout.preferredHeight: 1; Layout.preferredWidth: 500 }
