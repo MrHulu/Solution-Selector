@@ -4,5 +4,6 @@
         <file>DelegateItem.qml</file>
         <file>utils/Pane.qml</file>
         <file>utils/Popup.qml</file>
+        <file>utils/ScrollBar.qml</file>
     </qresource>
 </RCC>
