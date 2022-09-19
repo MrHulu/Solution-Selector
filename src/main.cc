@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "core/Clipboard.h"
+#include "core/utils/Clipboard.h"
+#include "core/UtilsHelper.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,7 +10,13 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<Clipboard>("Clipboard",1,0,"Clipboard");
+    qmlRegisterUncreatableType<Clipboard>("UtilsHelper",1,0,"Clipboard", "Clipboard cannot be created in QML.");
+    qmlRegisterSingletonType<UtilsHelper>("UtilsHelper",1,0,"UtilsHelper",
+                                          [](QQmlEngine *engine, QJSEngine *) -> QObject* {
+                                              auto instance = &UtilsHelper::instance();
+                                              engine->setObjectOwnership(instance, QQmlEngine::ObjectOwnership::CppOwnership);
+                                              return instance;
+                                          });
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

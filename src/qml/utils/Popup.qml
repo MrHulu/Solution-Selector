@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15 as C
 import QtGraphicalEffects 1.0
-import Clipboard 1.0
+import UtilsHelper 1.0
 
 C.Popup {
     id: popup
@@ -55,12 +55,12 @@ C.Popup {
                 C.Button {
                     highlighted: true
                     text: "复制"
-                    onClicked:  { clipboard.setText(popup.text); popup.close() }
+                    onClicked:  { UtilsHelper.clipboard.setText(popup.text); popup.close() }
                 }
             }
         }
     }
-    Clipboard { id: clipboard }
+
 
     background: Item {
         Rectangle {
