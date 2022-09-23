@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>运行环境</DisplayName>
+    <!--DisplayName xml:lang="zh-CN">Runtime Environment</DisplayName-->
+    <Description>方案选择助手运行时依赖的动态库。</Description>
+    <Version>1.0.0.0</Version>
+    <ReleaseDate>2022-09-22</ReleaseDate>
+    <Default>true</Default>
+    <ForcedInstallation>true</ForcedInstallation>
+    <SortingPriority>3</SortingPriority>
+    <ExpandedByDefault>false</ExpandedByDefault>
+    <!--Replaces>d00.rs21.pc.env</Replaces-->
+    <TreeName>root.window.environments</TreeName>
+</Package>

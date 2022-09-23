@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>方案选择助手</Name>
+    <Version>1.0.0</Version>
+    <Title>方案选择助手</Title>
+    <Publisher>HuluMan 杨zz</Publisher>
+    <ProductUrl>https://github.com/MrHulu</ProductUrl>
+    <WizardStyle>Mac</WizardStyle>
+    <WizardShowPageList>true</WizardShowPageList>
+    <WizardDefaultWidth>1024</WizardDefaultWidth>
+    <WizardDefaultHeight>600</WizardDefaultHeight>
+    <!--PageListPixmap>nan.png</PageListPixmap-->   
+    <Background>background.png</Background>
+    <!--Watermark>nan.png</Watermark-->
+    <RunProgram>@TargetDir@/方案选择助手.exe</RunProgram>
+    <MaintenanceToolName>MaintenanceTool</MaintenanceToolName>
+    <!-- Directory name is used in component.xml -->
+    <StartMenuDir>方案选择助手</StartMenuDir>
+    <TargetDir>@ApplicationsDirX86@/方案选择助手</TargetDir>
+    <AllowNonAsciiCharacters>true</AllowNonAsciiCharacters>
+    <AllowSpaceInPath>true</AllowSpaceInPath>
+    <RepositorySettingsPageVisible>false</RepositorySettingsPageVisible>
+    <ControlScript>controlScript.qs</ControlScript>
+    <!-- <RepositorySettingsPageVisible>true</RepositorySettingsPageVisible> -->
+    <RemoteRepositories>
+        <Repository>
+            <Url>https://gs-files.oss-cn-hongkong.aliyuncs.com/test/project/selector/repository/root.window</Url>
+        </Repository>
+        <Repository>
+            <Url>https://gs-files.oss-cn-hongkong.aliyuncs.com/test/project/selector/repository/root.window.environments</Url>
+        </Repository>
+        <Repository>
+            <Url>https://gs-files.oss-cn-hongkong.aliyuncs.com/test/project/selector/repository/root.window.maintenance</Url>
+        </Repository>
+    </RemoteRepositories>
+</Installer>

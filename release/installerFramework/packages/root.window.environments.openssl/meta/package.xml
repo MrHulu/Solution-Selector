@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>OpenSSL 1.1.1j 32-bit</DisplayName>
+    <Description>方案选择助手运行时依赖的动态库。</Description>
+    <Version>1.1.1-10</Version>
+    <ReleaseDate>2021-02-26</ReleaseDate>
+    <Default>true</Default>
+    <ForcedInstallation>true</ForcedInstallation>
+    <SortingPriority>1</SortingPriority>
+    <Licenses>
+        <License name="OpenSSL LICENSE" file="OpenSSL License.txt" />
+    </Licenses>
+    <ExpandedByDefault>true</ExpandedByDefault>
+    <TreeName>root.window.environments.openssl</TreeName>
+</Package>

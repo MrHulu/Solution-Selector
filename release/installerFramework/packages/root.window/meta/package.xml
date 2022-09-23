@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>方案选择助手</DisplayName>
+    <Description>方案选择助手&lt;br /&gt;包含程序、运行环境和字体。</Description>
+    <!--Description xml:lang="zh-CN">方案选择助手&lt;br /&gt;Contains programs, runtime environments, and fonts.</Description-->
+    <Version>1.0.0.0</Version>
+    <ReleaseDate>2022-09-22</ReleaseDate>
+    <Default>true</Default>
+    <ForcedInstallation>true</ForcedInstallation>
+    <Licenses>
+        <License name="&quot;方案选择助手&quot; User Agreement" file="user_agreement.txt" />
+        <License name="License" file="LICENSE" />
+    </Licenses>
+    <!--<Translations>
+        <Translation>zh.qm</Translation>
+    </Translations>-->
+    <Script>installscript.qs</Script>
+    <ExpandedByDefault>true</ExpandedByDefault>
+    <!--Replaces>d00.rs21.pc</Replaces-->
+    <TreeName>root.windows</TreeName>
+</Package>

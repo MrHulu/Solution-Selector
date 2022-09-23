@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Qt5 MSVC 2019 32-bit</DisplayName>
+    <Description>方案选择助手运行时依赖的动态库。</Description>
+    <Version>5.15.2-0-202011130602-1</Version>
+    <ReleaseDate>2020-11-13</ReleaseDate>
+    <Default>true</Default>
+    <ForcedInstallation>true</ForcedInstallation>
+    <SortingPriority>2</SortingPriority>
+    <ExpandedByDefault>true</ExpandedByDefault>
+    <Replaces>d00.rs21.pc.env.qt</Replaces>
+    <TreeName>root.window.environments.qt</TreeName>
+</Package>

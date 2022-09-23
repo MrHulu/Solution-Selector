@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>维护工具</DisplayName>
+    <Description>用于程序和组件的更新与卸载。</Description>
+    <Version>4.4.0-0-202206080948</Version>
+    <ReleaseDate>2022-06-08</ReleaseDate>
+    <ForcedInstallation>true</ForcedInstallation>
+    <Essential>true</Essential>
+    <ForcedUpdate>true</ForcedUpdate>
+    <SortingPriority>1</SortingPriority>
+    <Virtual>true</Virtual>
+    <Script>installscript.qs</Script>
+    <TreeName>root.window.maintenance</TreeName>
+</Package>
