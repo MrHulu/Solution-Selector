@@ -10,8 +10,8 @@
 <div id="dir"><h2>目录</h2>
 <ul>
     <li><a href="#howToUse">如何使用?</a></li>
-    <li><a href="#struct">源码结构</a></li>
     <li><a href="https://github.com/MrHulu/Solution-Selector/release">下载地址</a></li>
+    <li><a href="#struct">源码结构</a></li>
 </ul>
 </div>
 
