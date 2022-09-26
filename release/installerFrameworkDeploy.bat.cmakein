@@ -1,0 +1,182 @@
+@chcp 65001
+
+@set lastCd=%cd%
+@set SOFTWARE_NAME=@SOFTWARE_NAME@
+@set SOFTWARE_VERSION=@SOFTWARE_VERSION@
+@set _temp=@QTDIR@
+@set QTDIR=%_temp:/=\%
+@set _temp=@QtInstallerFrameworkPath@
+@set PATH=%PATH%;%_temp:/=\%
+
+@call "%QTDIR%\bin\qtenv2.bat"
+
+cd /D %lastCd%
+
+echo 更新 ".\installerFramework" ...
+
+echo 更新Qt运行环境...
+set TargetPath=installerFramework\packages\root.window.environments.qt\data
+if not exist "%TargetPath%" ( mkdir "%TargetPath%" )
+"windeployqt.exe" ^
+    --release ^
+    --qmldir "%QTDIR%/qml" ^
+    --no-multimediaquick --no-multimedia --no-test ^
+    --dir "%TargetPath%/qtenv" ^
+    --libdir "%TargetPath%/qtenv/bin" ^
+    --plugindir "%TargetPath%/qtenv/plugins" ^
+    --verbose 0 ^
+    "bin\%SOFTWARE_NAME%.exe"
+
+xcopy bin\qt.conf                 "%TargetPath%"            /D /Y
+
+set DllList=Qt5Core.dll,Qt5Gui.dll,Qt5Network.dll,Qt5Qml.dll,Qt5Widgets.dll,Qt5SerialBus.dll,Qt5Xml.dll,Qt5Quick.dll,Qt5QmlModels.dll
+set DllList=qtenv\bin\%DllList:,= qtenv\bin\%
+(for %%a in (%DllList%) do (
+    if exist "%TargetPath%\%%a" ( move /Y "%TargetPath%\%%a" "%TargetPath%" )
+))
+
+echo 更新QtQuick.Shapes...
+if not exist "%TargetPath%\qtenv\QtQuick\Shapes" ( mkdir "%TargetPath%\qtenv\QtQuick\Shapes" )
+xcopy %QTDIR%\qml\QtQuick\Shapes\plugins.qmltypes    "%TargetPath%\qtenv\QtQuick\Shapes" /D /Y
+xcopy %QTDIR%\qml\QtQuick\Shapes\qmldir              "%TargetPath%\qtenv\QtQuick\Shapes" /D /Y
+xcopy %QTDIR%\qml\QtQuick\Shapes\qmlshapesplugin.dll "%TargetPath%\qtenv\QtQuick\Shapes" /D /Y
+xcopy %QTDIR%\bin\Qt5QuickShapes.dll                 "%TargetPath%\qtenv\bin"            /D /Y
+
+echo 更新Qt.labs.platform...
+if not exist "%TargetPath%\qtenv\Qt\labs\platform" ( mkdir "%TargetPath%\qtenv\Qt\labs\platform" )
+xcopy %QTDIR%\qml\Qt\labs\platform\plugins.qmltypes            "%TargetPath%\qtenv\Qt\labs\platform" /D /Y
+xcopy %QTDIR%\qml\Qt\labs\platform\qmldir                      "%TargetPath%\qtenv\Qt\labs\platform" /D /Y
+xcopy %QTDIR%\qml\Qt\labs\platform\qtlabsplatformplugin.dll    "%TargetPath%\qtenv\Qt\labs\platform" /D /Y
+
+echo 更新OpenSSL...
+set TargetPath=installerFramework\packages\root.window.environments.openssl\data
+if not exist "%TargetPath%" ( mkdir "%TargetPath%" )
+xcopy "bin\libssl-1_1.dll"    "%TargetPath%"        /D /Y
+xcopy "bin\libcrypto-1_1.dll"    "%TargetPath%"        /D /Y
+
+echo 更新软件
+set TargetPath=installerFramework\packages\root.window.program\data
+if not exist "%TargetPath%" ( mkdir "%TargetPath%" )
+xcopy "bin\%SOFTWARE_NAME%.exe"    "%TargetPath%"        /D /Y
+
+
+echo 输出仓库
+if not exist "output" ( mkdir "output" )
+set RepositoryRoot=output/repository
+
+REM **************************
+REM 生成一些基本的仓库
+set PackagesDir=installerFramework/packages
+
+set Include=root.window
+set AllInclude=%Include%
+set TargetPath=%RepositoryRoot%/%Include%
+call:updateRepository "%PackagesDir%","%AllInclude%","%TargetPath%"
+
+set Include=root.window.environments
+set AllInclude=%Include%,%Include%.openssl,%Include%.qt
+set TargetPath=%RepositoryRoot%/%Include%
+call:updateRepository "%PackagesDir%","%AllInclude%","%TargetPath%"
+
+set Include=root.window.program
+set TargetPath=%RepositoryRoot%/%Include%
+call:updateRepository "%PackagesDir%","%Include%","%TargetPath%"
+
+REM 生成维护工具仓库（无需反复生成）
+call:updateMaintenanceTool
+
+@REM 基于有效的installbase.exe生成maintenance仓库
+set Include=root.window.maintenance
+set TargetPath=%RepositoryRoot%/%Include%
+call:updateRepository "%PackagesDir%","%Include%","%TargetPath%"
+
+
+@REM ******************************
+@REM 提供安装包
+@REM 正式版本在线安装包
+set TargetPath=output\Selector_Installer.exe
+echo 更新安装包"%TargetPath%", 当前目录"%cd%"...
+"binarycreator.exe" --online-only ^
+    --config "installerFramework/config/config.xml" ^
+    --repository "output/repository/root.window" ^
+    --repository "output/repository/root.window.environments" ^
+    --repository "output/repository/root.window.maintenance" ^
+    "%TargetPath%"
+
+@REM 正式版本离线安装包
+set TargetPath=output\Selector_Offline_Installer_V%SOFTWARE_VERSION%.exe
+echo 更新安装包"%TargetPath%", 当前目录"%cd%"...
+"binarycreator.exe" --offline-only ^
+    --config "installerFramework/config/config.xml" ^
+    --repository "output/repository/root.window" ^
+    --repository "output/repository/root.window.environments" ^
+    --repository "output/repository/root.window.maintenance" ^
+    "%TargetPath%"
+
+
+@REM set TargetPath=output\repository
+@REM echo 更新packageExtendInfoMap.json
+@REM if not exist "%TargetPath%" ( mkdir "%TargetPath%" )
+@REM xcopy "installerFramework\packageExtendInfoMap.json" "%TargetPath%" /D /Y
+
+
+
+
+
+exit /b 0
+
+
+
+:updateRepository
+set _PackagesDir=%~1
+set _Include=%~2
+set _TargetPath=%~3
+echo - 更新仓库"%_TargetPath%", 当前目录"%cd%"...
+"repogen.exe" ^
+--component-metadata ^
+--update-new-components ^
+--packages "%_PackagesDir%" ^
+--include "%_Include%" ^
+"%_TargetPath%"
+goto:eof
+
+
+:updateMaintenanceTool
+@REM 生成dummy离线安装包
+set InstallerPath=%RepositoryRoot%/dummy_installer.exe
+"binarycreator.exe" --offline-only ^
+--config "installerFramework/config/config.xml" ^
+--repository "%RepositoryRoot%/root.window" ^
+"%InstallerPath%"
+
+@REM 安装以获取MaintenanceTool.exe
+"%InstallerPath:/=\%" --accept-licenses --confirm-command --root "%cd:\=/%/output/temp" install
+timeout /T 3
+
+@REM 将安装得到的MaintenanceTool.exe移动到仓库installbase.exe中
+set Include=root.window.maintenance
+set PackagesDir=installerFramework/packages
+set SourceDir=output/temp
+set SourceName=MaintenanceTool.exe
+set TargetDir=%PackagesDir%/%Include%/data
+set TargetName=installerbase.exe
+del "%TargetDir:/=\%\%TargetName%"
+mkdir "%TargetDir:/=\%"
+xcopy "%SourceDir:/=\%\%SourceName%" "%TargetDir:/=\%" /D /Y
+rename "%TargetDir:/=\%\%SourceName%" "%TargetName%"
+
+@REM 卸载安装
+del "%InstallerPath:/=\%"
+"%SourceDir:/=\%\%SourceName%" --confirm-command purge
+timeout /T 3
+
+goto:eof
+
+
+
+:upgradeOldRepository
+set TargetPath=%~1
+set PackagesDir=installerFramework/packages
+set Include=root.window.maintenance
+call:updateRepository "%PackagesDir%","%Include%","%TargetPath%"
+goto:eof
