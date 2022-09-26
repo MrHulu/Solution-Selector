@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QResource>
 #include <QQmlApplicationEngine>
 #include "core/utils/Clipboard.h"
 #include "core/UtilsHelper.h"
@@ -9,6 +10,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
+
+    //QResource::registerResource("resource.rcc");
 
     qmlRegisterUncreatableType<Clipboard>("UtilsHelper",1,0,"Clipboard", "Clipboard cannot be created in QML.");
     qmlRegisterSingletonType<UtilsHelper>("UtilsHelper",1,0,"UtilsHelper",

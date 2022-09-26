@@ -60,3 +60,27 @@ endif()
 #     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources.rcc
 #)
 
+configure_file(
+    ${ReleasePath}/installerFrameworkDeploy.bat.cmakein
+    ${CMAKE_CURRENT_BINARY_DIR}/installerFrameworkDeploy.bat
+    @ONLY)
+
+#installer
+install(FILES
+    ${ConfigPath}/qt.conf
+    ${OpenSSLPath}/bin/libcrypto-1_1.dll
+    ${OpenSSLPath}/bin/libssl-1_1.dll
+    #${ROOT_BIN_PATH}/resource.rcc
+    DESTINATION bin)
+
+install(PROGRAMS
+    ${CMAKE_CURRENT_BINARY_DIR}/installerFrameworkDeploy.bat
+    DESTINATION ./
+    PERMISSIONS OWNER_EXECUTE)
+
+install(TARGETS Solution-Selector
+    RUNTIME DESTINATION bin)
+
+install(DIRECTORY
+    ${ReleasePath}/installerFramework
+    DESTINATION ./)

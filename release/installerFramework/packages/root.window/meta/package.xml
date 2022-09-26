@@ -8,7 +8,7 @@
     <Default>true</Default>
     <ForcedInstallation>true</ForcedInstallation>
     <Licenses>
-        <License name="&quot;方案选择助手&quot; User Agreement" file="user_agreement.txt" />
+        <!--<License name="方案选择助手&quot; User Agreement" file="user_agreement.txt" />-->
         <License name="License" file="LICENSE" />
     </Licenses>
     <!--<Translations>

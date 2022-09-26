@@ -5,6 +5,12 @@ project(Solution-Selector)
 include_directories(src)
 
 set(QTDIR $ENV{QTDIR})
+set(RootPath ${CMAKE_CURRENT_SOURCE_DIR})
+set(ReleasePath ${CMAKE_CURRENT_SOURCE_DIR}/release)
+set(ConfigPath ${CMAKE_CURRENT_SOURCE_DIR}/config)
+set(DataPath ${CMAKE_CURRENT_SOURCE_DIR}/data)
+set(QtInstallerFrameworkPath ${QTDIR}/../../Tools/QtInstallerFramework/4.4/bin)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /std:c++latest")
 
 # openSSL
