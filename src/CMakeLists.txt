@@ -1,8 +1,19 @@
 cmake_minimum_required(VERSION 3.14)
 
-#set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(SOFTWARE_NAME "方案选择助手")
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
+
+set(SOFTWARE_NAME "方案选择助手")
+#set(SOFTWARE_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/LOGO.ico")
+set(X_VERSION "1")
+set(Y_VERSION "0")
+set(Z_VERSION "0")
+set(SOFTWARE_VERSION "${X_VERSION}.${Y_VERSION}.${Z_VERSION}")
+
+#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build/softwareInfo.rc.cmakein softwareInfo.rc @ONLY)
+set(CMAKE_AUTORCC_OPTIONS -compress 2 -threshold 3)
+
+
+enable_testing()
 
 # ----------------  UtilsHelper ----------------------
 add_library(Utils STATIC)
@@ -28,9 +39,9 @@ target_link_libraries(Utils PRIVATE
 
 add_executable(Solution-Selector)
 target_sources(Solution-Selector PRIVATE
-    #${CMAKE_CURRENT_BINARY_DIR}/resources.rc
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/qml.qrc
+    #${CMAKE_CURRENT_BINARY_DIR}/softwareInfo.rc
 )
 set_target_properties(Solution-Selector PROPERTIES
     AUTOUIC ON
@@ -48,11 +59,10 @@ target_link_libraries(Solution-Selector PRIVATE
     Utils
     )
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(Solution-Selector)
-    qt_finalize_executable(Solution-Selector)
-endif()
 
+#installer
+install(TARGETS Solution-Selector
+    RUNTIME DESTINATION bin)
 
 ## Resource
 #qt5_add_binary_resources(
@@ -60,27 +70,3 @@ endif()
 #     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/resources.rcc
 #)
 
-configure_file(
-    ${ReleasePath}/installerFrameworkDeploy.bat.cmakein
-    ${CMAKE_CURRENT_BINARY_DIR}/installerFrameworkDeploy.bat
-    @ONLY)
-
-#installer
-install(FILES
-    ${ConfigPath}/qt.conf
-    ${OpenSSLPath}/bin/libcrypto-1_1.dll
-    ${OpenSSLPath}/bin/libssl-1_1.dll
-    #${ROOT_BIN_PATH}/resource.rcc
-    DESTINATION bin)
-
-install(PROGRAMS
-    ${CMAKE_CURRENT_BINARY_DIR}/installerFrameworkDeploy.bat
-    DESTINATION ./
-    PERMISSIONS OWNER_EXECUTE)
-
-install(TARGETS Solution-Selector
-    RUNTIME DESTINATION bin)
-
-install(DIRECTORY
-    ${ReleasePath}/installerFramework
-    DESTINATION ./)
