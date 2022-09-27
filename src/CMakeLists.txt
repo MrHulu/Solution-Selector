@@ -3,13 +3,13 @@ cmake_minimum_required(VERSION 3.14)
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
 
 set(SOFTWARE_NAME "方案选择助手")
-#set(SOFTWARE_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/LOGO.ico")
+set(SOFTWARE_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/LOGO.ico")
 set(X_VERSION "1")
 set(Y_VERSION "0")
 set(Z_VERSION "0")
 set(SOFTWARE_VERSION "${X_VERSION}.${Y_VERSION}.${Z_VERSION}")
 
-#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build/softwareInfo.rc.cmakein softwareInfo.rc @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build/softwareInfo.rc.cmakein softwareInfo.rc @ONLY)
 set(CMAKE_AUTORCC_OPTIONS -compress 2 -threshold 3)
 
 
@@ -41,7 +41,7 @@ add_executable(Solution-Selector)
 target_sources(Solution-Selector PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/qml/qml.qrc
-    #${CMAKE_CURRENT_BINARY_DIR}/softwareInfo.rc
+    ${CMAKE_CURRENT_BINARY_DIR}/softwareInfo.rc
 )
 set_target_properties(Solution-Selector PROPERTIES
     AUTOUIC ON
