@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.14)
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
 
 set(SOFTWARE_NAME "方案选择助手")
-set(SOFTWARE_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/LOGO.ico")
+set(SOFTWARE_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/ICON.ico")
 set(X_VERSION "1")
 set(Y_VERSION "0")
 set(Z_VERSION "0")
