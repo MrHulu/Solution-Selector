@@ -32,5 +32,8 @@
         <Repository>
             <Url>https://gs-files.oss-cn-hongkong.aliyuncs.com/test/project/selector/repository/root.window.maintenance</Url>
         </Repository>
+        <Repository>
+            <Url>https://gs-files.oss-cn-hongkong.aliyuncs.com/test/project/selector/repository/root.window.program</Url>
+        </Repository>
     </RemoteRepositories>
 </Installer>
